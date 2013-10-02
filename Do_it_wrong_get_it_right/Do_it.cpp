@@ -3,24 +3,25 @@
 using namespace std;
 
 #define MIN(a,b) a<b?a:b
-int b;
-int n;
+int b, n;
 
-int numerator (int m)
+int numerator(int m)
 {
 	return -((b*m*(m-2*n)/(n*n)));
 }
 			
-int factor ()
+int factor()
 {
 	int ans;
 	for (int i =2 ;i<MIN(b,n);i++)
 	{
 		if(b%i==0 && n%i==0)
 		{
-			ans = 	n/i;
+			ans = n/i;
 			break;
 		}
+		else
+			ans = 1;
 	}
 	return ans;
 }
@@ -36,7 +37,7 @@ int main ()
 	while(true)
 	{
 		takeinput();
-		if (b == 0 && n== 0)
+		if (b == 0 && n == 0)
 		{
 			break;
 		}
