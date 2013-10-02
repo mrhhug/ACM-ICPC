@@ -1,19 +1,33 @@
 #include <iostream>
 
 using namespace std;
+typedef long long ll;
 
-#define MIN(a,b) a<b?a:b
-int b, n;
+ll b, n;
 
-int numerator(int m)
+ll max(ll a, ll b) { return a>b?a:b; }
+
+bool isprime(ll x)
+{
+	for(int i=2;i<x;i++) {
+		if(x % i == 0)
+			return false;
+	}
+return true;
+}
+
+ll numerator(ll m)
 {
 	return -((b*m*(m-2*n)/(n*n)));
 }
 			
-int factor()
+ll factor()
 {
-	int ans;
-	for (int i =2 ;i<MIN(b,n);i++)
+	ll ans;
+	if(isprime(b) || isprime(n))
+		return 1;
+
+	for (ll i=2;i<max(b,n);i++)
 	{
 		if(b%i==0 && n%i==0)
 		{
@@ -41,16 +55,24 @@ int main ()
 		{
 			break;
 		}
-		int fac = factor();
-		int denom = 2*n;
-		//cout << denom <<endl;
+		ll fac = factor();
+		ll denom = 2*n;
+		//cout << fac <<endl;
 		while (denom >= fac)
 		{
 			if (denom != n)
 			{
 			cout << numerator(denom) << "/" << denom << " ";
 			}
-			denom -= fac;
+
+			if(fac == 1)
+			{
+				denom -= n;
+			}
+			else
+			{
+				denom -= fac;
+			}
 		}
 		cout << endl;
 	}
