@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
-#include <pthread.h>
 
 #define NUM_THREADS 5
 
@@ -65,10 +64,10 @@ void takeinput()
 }
 int main ()
 {
-	string str = "134";
-	Bigint number = str;
-	cout << checkhappy(number) << endl;
-	while (false)
+	//string str = "2";
+	//Bigint number = str;
+	//cout << checkhappy(number) << endl;
+	while (true)
 	{
 		maincount = bigzero;
 		takeinput();
@@ -78,7 +77,10 @@ int main ()
 		}
 		for ( ; lo<hi+bigone;lo=lo+bigone)
 		{
-			checkhappy(lo);
+			if(!checkhappy(lo))
+			{
+				maincount = maincount + bigone;
+			}
 		}
 		cout << maincount.to_string() << endl;
 	}
