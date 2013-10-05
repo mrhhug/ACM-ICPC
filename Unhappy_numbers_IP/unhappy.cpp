@@ -3,70 +3,84 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
+#include <pthread.h>
+
+#define NUM_THREADS 5
 
 using namespace std;
 
 string zero = "0";
+string one = "1";
 Bigint hi;
 Bigint lo;
-Bigint bigzero = zero;
+Bigint bigzero = zero; 
+Bigint bigone = one;
+Bigint maincount;
 
-
-
-string square(string num)
+Bigint square(char num)
 {
-	int n = atoi(num.c_str());
+	int n = num-'0';
 	n = n*n;
-	//char *intStr = itoa(n);
-	return to_string(n);
+	Bigint returnval;
+	returnval = to_string(n);
+	return returnval;
 }
-string pullapartnum(Bigint num)
+Bigint pullapartnum(Bigint num)
 {
-	//cout << num << endl;
 	string oldstring = num.to_string();
-	string newstring = "";
+	Bigint newstring = zero;
 	for (int i =0 ;i<num.size();i++)
 	{
-		newstring+=square(oldstring.at(i));
+		newstring=newstring + square(oldstring.at(i));
 	}
 	return newstring;
 }
-/*
-int checkhappy (string num)
+bool checkhappy (Bigint num)
 {
+	string MAXDEPTH = "5";
+	Bigint bigmax = MAXDEPTH;
 	string count ="1";
-	string max = "19";
-	while (num!="1" && count != max )
+	Bigint bigcount = count;
+	//cout << num.to_string() << endl;
+	while (bigone < num)
 	{
+		if (num < bigmax)
+		{
+			//maincounter = maincounter+bigone;
+			return false;
+		}
 		num = pullapartnum(num);
-		count=incrament(count);
+		//cout << num.to_string() << endl;
 	}
-	if (count == max)
-	{
-		return 0;
-	}
-	else return 1;
+	return true;
 }
-*/
-
 void takeinput()
 {
-	string num;
-	cin >> num;
-	hi=num;
-	cin >> num;
-	lo=num;
+	string cin0;
+	cin >> cin0;
+	lo=cin0;
+	string cin1;
+	cin >> cin1;
+	hi=cin1;
 }
-
 int main ()
 {
+	string str = "134";
+	Bigint number = str;
+	cout << checkhappy(number) << endl;
 	while (false)
 	{
+		maincount = bigzero;
 		takeinput();
-		if (lo == bigzero && hi == bigzero)
+		if (hi == bigzero && lo == bigzero)
 		{
 			break;
 		}
+		for ( ; lo<hi+bigone;lo=lo+bigone)
+		{
+			checkhappy(lo);
+		}
+		cout << maincount.to_string() << endl;
 	}
 	//cout << count << endl;
 	//cout << str << endl;

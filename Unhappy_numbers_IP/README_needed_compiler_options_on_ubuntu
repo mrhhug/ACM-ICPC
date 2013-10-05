@@ -2,6 +2,3 @@
 
 example :
 g++ -std=c++0x unhappy.cpp && ./a.out
-
-
-this brute force solution will not work
