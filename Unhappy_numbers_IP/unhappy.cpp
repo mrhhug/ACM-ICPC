@@ -6,16 +6,11 @@
 
 using namespace std;
 
-unsigned long long maincount,hi,lo;
+unsigned long long hi,lo=1;
+unsigned long long maincount;
+const unsigned long long maxarray = 2000;
+bool boolarray[maxarray];
 
-void do_join(thread& t)
-{
-	t.join();
-}
-void join_all(vector<thread>& v)
-{
-	for_each(v.begin(),v.end(),do_join);
-}
 void incramentmaincount()
 {
 	maincount++;
@@ -25,7 +20,7 @@ unsigned long long square(char num)
 	int n = num-'0';
 	return n*n;
 }
-unsigned long long pullapartnum(unsigned long long num)
+int long pullapartnum(unsigned long long num)
 {
 	stringstream ss;
 	ss << num;
@@ -37,22 +32,24 @@ unsigned long long pullapartnum(unsigned long long num)
 	}
 	return newstring;
 }
-void checkhappy (unsigned long long num)
+bool checkhappy (unsigned long long num)
 {
-	int MAXDEPTH = 25;
+	int MAXDEPTH = 15;
 	int count =0;
 	unsigned long long inputnumber = num;
 	while (num > 1)
 	{
 		if (MAXDEPTH < count)
 		{
-			incramentmaincount();
-			return;
+			return false;
+			//incramentmaincount();
+			//return;
 		}
 		num = pullapartnum(num);
 		count++;
 	}
-	return;
+	return true;
+	//return;
 }
 void takeinput()
 {
@@ -62,37 +59,41 @@ void takeinput()
 	hi = strtoull(cinhi.c_str(),NULL, 10);
 	lo = strtoull(cinlo.c_str(),NULL, 10);
 }
+
+void createArray()
+{
+	for (int i=1;i<maxarray;i++)
+	{
+		boolarray[i]=checkhappy(i);
+	}
+}
 int main ()
 {
+	unsigned long long count=0;
+	createArray();
+
 	while (true)
 	{
-		int MAXTHREADS = 3;
-		maincount = 0;
 		takeinput();
-		if (hi == 0 && lo == 0)
+		if(lo ==0 && hi ==0)
 		{
 			break;
 		}
-		int arraycount;
-		while(lo<=hi)
+		unsigned long long curnum;
+		for ( ; lo<=hi;lo++)
 		{
-			arraycount =1;		
-			thread threadarray[MAXTHREADS];
-			threadarray[0]=thread(checkhappy,lo);
-			lo++;
-			for(int i =1;i<MAXTHREADS && lo<=hi;i++)
+			curnum = lo;
+			while(curnum>maxarray)
 			{
-				threadarray[i]=thread(checkhappy,lo);	
-				lo++;
-				arraycount++;
+				curnum=pullapartnum(curnum);
 			}
-			for (int i =0; i<arraycount;i++)
+			if (!boolarray[curnum])
 			{
-				threadarray[i].join();
+				count++;
 			}
-			
 		}
-		cout << maincount << endl;
+		cout << count << endl;
+		count =0;
 	}
 }
 
