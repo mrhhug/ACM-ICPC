@@ -8,34 +8,38 @@ using namespace std;
 vector<string> Vstring;
 string word0;
 string word1;
+int num=-1;
 
-void add1() {
-	Vstring.push_back("FRED");
-	Vstring.push_back("SAM");
-	Vstring.push_back("JOE");
-	Vstring.push_back("MARGARET");
-	Vstring.push_back("MARY");
-	Vstring.push_back("MARCIE");
-}
-
-void add() {
-	Vstring.push_back("FRED");
-	Vstring.push_back("FREDDIE");
-}
-
-void sort () {
+void sort () 
+{
 	sort(Vstring.begin(),Vstring.end());
 }
-
-void print(){
+bool takeinput()
+{
+	Vstring.clear();
+	cin >> num;
+	if(num==0)
+	{
+		return false;
+	}
+	string str;
+	for (int i =0;i<num;i++)
+	{
+		cin >> str;
+		Vstring.push_back(str);
+	}
+	return true;
+}
+void print()
+{
 	for(int i =0;i<Vstring.size();i++)
 	{
 		cout << "\n" << Vstring[i];
 	}
 	cout << "\n" << endl;
 }
-
-void findwords() {
+void findwords()
+{
 	if(Vstring.size()==2)
 	{
 		word0=Vstring[0];
@@ -47,37 +51,52 @@ void findwords() {
 		word1 = Vstring[Vstring.size()/2];
 	}
 }
-void findletter() {
-	cout << word0 << "\n";
-	cout << word1 << "\n";
-	cout << endl;
-	int i ;
-	int max = word0.size()-1;
-	for (i =0; word0.at(i)==word1.at(i) && i<max;i++)
+void findletter()
+{
+	//cout << word0 << " " << word1 << endl;
+	bool flag = true;
+	char c0 = word0.c_str()[0];
+	char c1 = word1.c_str()[0];
+	if (word0.size() == 1)
 	{
-	}
-	if (max == i)
-	{
-		cout << word0 << endl ;
-	}
-	else
-	{
-		char ch = word0.at(i);
-		for (int j =0; j<i;j++)
+		if (c0==c1)
 		{
-			cout << word0.at(j);
+			cout << c1 << endl;
 		}
-		ch++;
-		cout << ch << "\n";
+		else
+		{
+			cout << c0 << endl;
+		}
+		return;
 	}
-}
+	for (int i =0 ; word0.size() > i && flag ;i++)
+	{
+		c0 = word0.c_str()[i];
+		c1 = word1.c_str()[i];
+		if (c0==c1)
+		{
+			cout << c0;
+		}
+		else
+		{
+			//cout << "    " << c0 << endl;
+			c0++;
+			cout << c0;
+			flag=false;
+		}
+	}
+	cout << endl;
 
-int main () {
-	//cout << " \n" << "good day" <<"\n";
-	add1();
-	//print();
-	sort();
-	//print();
-	findwords();
-	findletter();
+}
+int main ()
+{
+	string str ="qy";
+	//cout << str.size() << endl;
+	while(takeinput())
+	{
+		sort();
+		findwords();
+		//cout << word0 << " " << word1 << endl;
+		findletter();
+	}
 }
