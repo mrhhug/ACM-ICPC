@@ -30,21 +30,16 @@ bool takeinput()
 	}
 	return true;
 }
-void print()
-{
-	for(int i =0;i<Vstring.size();i++)
-	{
-		cout << "\n" << Vstring[i];
-	}
-	cout << "\n" << endl;
-}
+
 void findwords()
 {
+	//dividing by 2 messes up when there is only 2
 	if(Vstring.size()==2)
 	{
 		word0=Vstring[0];
 		word1=Vstring[1];
 	}
+	//normally this will work
 	else
 	{
 		word0 = Vstring[Vstring.size()/2-1];
@@ -53,45 +48,37 @@ void findwords()
 }
 void findletter()
 {
-	//cout << word0 << " " << word1 << endl;
-	bool flag = true;
-	char c0 = word0.c_str()[0];
-	char c1 = word1.c_str()[0];
-	if (word0.size() == 1)
+	string returnvalue = "";
+	string knowngoodsubstring = "";
+	for( int i=0; i<word0.size(); ++i )
 	{
-		if (c0==c1)
+		//peal off the next char or the string you want to go to the left(stay in the group starting with 'a'
+		char c = word0[i];
+		/////be careful not to char incrament at z, i think most people considered the ending of the word
+		//i hadent caught this except for when I looked at the .judge
+		//remember to consider all possible cases, we won't see the .judge in comp
+		if(c!='Z' && i<word0.size()-1)
 		{
-			cout << c1 << endl;
+			c++;
 		}
-		else
+		//first time arround  knowngoodsubstring=="", so nothing really happens, every other time arround
+		//we are adding the char we pealed off to all letters that are goodk
+		returnvalue = knowngoodsubstring+c;
+		////gaylor is big on the compareto in java, this is c++'s syntax
+		//glad i took that class(data structures)
+		if(returnvalue.compare(word0) >= 0 && returnvalue.compare(word1) < 0)
 		{
-			cout << c0 << endl;
+			//we are done wit this loop
+			//terminate early
+			break;
 		}
-		return;
+		knowngoodsubstring += word0[i];
 	}
-	for (int i =0 ; word0.size() > i && flag ;i++)
-	{
-		c0 = word0.c_str()[i];
-		c1 = word1.c_str()[i];
-		if (c0==c1)
-		{
-			cout << c0;
-		}
-		else
-		{
-			//cout << "    " << c0 << endl;
-			c0++;
-			cout << c0;
-			flag=false;
-		}
-	}
-	cout << endl;
+	cout <<  returnvalue << endl;
 
 }
 int main ()
 {
-	string str ="qy";
-	//cout << str.size() << endl;
 	while(takeinput())
 	{
 		sort();
