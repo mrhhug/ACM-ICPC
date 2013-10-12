@@ -21,7 +21,6 @@ void gen(bool store[], ull input)
 
 	ull output = next_happy(input);
 	if(output == 1) {
-		store[output] = false;
 		return gen(store, input+1);
 	}
 }
