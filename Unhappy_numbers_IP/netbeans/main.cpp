@@ -9,7 +9,6 @@ vector<string> Vstring;
 string word0;
 string word1;
 int num=-1;
-bool printed=false;
 
 void sort ()
 {
@@ -54,16 +53,45 @@ void findwords()
 }
 void findletter()
 {
-    if(word0.size()==1)
-    {
-        cout << word0<< "__";
+	//cout << word0 << " " << word1 << endl;
+	cout << word0 << "  " <<word0.size()<< " "<< word1 << "______";
+	if (word0.size()==1==word1.size())
+	{
+        cout << word0;
     }
-   cout << word0 << " " << word1 <<endl;
+	int i=0;
+	bool printed=false;
+	for ( ; word0.size() > i && word1.size() > i ;i++)
+	{
+		if(word0.compare(i,1,word1,i,1)==0)
+		{
+            printed=true;
+            cout << word0.substr(i,1);
+		}
+		else
+		{
+            break;
+        }
+	}
+	//if (false)
+	if(!printed)
+	{
+        char c,d;
+        c=word0[0];
+        d=word1[0];
+        c++;
+        if(c!=d)
+        {
+            //cout<<c;
+        }
+	}
+	cout << endl;
+
 }
 int main ()
 {
 	string str ="q";
-	//cout << str[0] << str[2]<<endl;
+	//cout << str.size() << endl;
 	while(takeinput())
 	{
 		sort();
