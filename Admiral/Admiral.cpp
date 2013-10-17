@@ -4,7 +4,12 @@
 #include <utility>
 
 using namespace std;
-
+struct triple
+{
+	int source;
+	int dest;
+	int weight;
+};
 int main()
 {
 	//initials
@@ -43,54 +48,65 @@ int main()
 		}
 		cout<<endl;
     	}
-
 	//bfs
 	/*
-	queue<pair<int,int> > que;
-	pair<int, int> pai;
+	queue<triple> col;
+	triple tri;
 	int destinationnode = 6;
 	int startnode = 1;
 	int currentnode=startnode;
-	que.push(make_pair(startnode,-1));
-	while(que.size()>0)
+	tri.source = startnode;
+	tri.dest =-1;
+	tri.weight=-1;
+	col.push(tri);
+	while(col.size()>0)
 	{
-		pai=que.front();
-		que.pop();
-		if(pai.second>0)
-			currentnode=pai.second;
+		tri=col.front();
+		col.pop();
+		if(tri.dest>0 )
+			currentnode=tri.dest;
 		for(int i=0;i<v;i++)
 		{
 			if (matrix[currentnode][i]>0)
 			{
-				que.push(make_pair(currentnode,i));
+				tri.source = currentnode;
+				tri.dest = i;
+				tri.weight = matrix[currentnode][i];
+				col.push(tri);
 				matrix[currentnode][i]=-1;
 			}
 		}
-		cout << pai.first << "," << pai.second << endl;
+		cout << tri.source << "," << tri.dest << "," << tri.weight << endl;
 	}
 	*/
 	//dfs to destination node
-	stack<pair<int,int> > sta;
-	pair<int, int> pai;
+	stack<triple> col;
+	triple tri;
 	int destinationnode = 6;
 	int startnode = 1;
 	int currentnode=startnode;
-	sta.push(make_pair(startnode,-1));
-	while(sta.size()>0)
+	tri.source = startnode;
+	tri.dest =-1;
+	tri.weight=-1;
+	col.push(tri);
+	while(col.size()>0)
 	{
-		pai=sta.top();
-		sta.pop();
-		if(pai.second>0 )
-			currentnode=pai.second;
+		tri=col.top();
+		col.pop();
+		if(tri.dest>0 )
+			currentnode=tri.dest;
 		for(int i=0;i<v;i++)
 		{
 			if (matrix[currentnode][i]>0)
 			{
-				sta.push(make_pair(currentnode,i));
+				tri.source = currentnode;
+				tri.dest = i;
+				tri.weight = matrix[currentnode][i];
+				col.push(tri);
 				matrix[currentnode][i]=-1;
 			}
 		}
-		cout << pai.first << "," << pai.second << endl;
+		cout << tri.source << "," << tri.dest << "," << tri.weight << endl;
 	}
 }
 
