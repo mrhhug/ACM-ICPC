@@ -26,29 +26,15 @@ return ans;
 ull dp(bool store[], ull lo, ull hi)
 {
 	ull count = 0;
+
 	for(int i=lo;i<=hi;i++) {
 		if(store[i])
 			count++;
 		else {
-			int start = i, inc = gen_happy(i);
-			while(true) {
+			int start = i, inc = next_happy(i);
+			while(inc != start) {
 				if(inc == 1)
 					continue;
-				else if(start == inc) {
-					count++;
-					store[i] = true;
-					inc = gen_happy(inc);
-					while(start != inc) {
-						if(store[inc])
-							continue;
-						store[inc] = true;
-						inc = gen_happy(inc);
-					}
-					break;
-				} else
-					inc = gen_happy(inc);
-			}
-		}
 	}
 return count;
 }
@@ -60,10 +46,9 @@ int main()
 		if(lo == 0 && hi == 0)
 			break;
 		bool store[hi];
-		for(int i=0;i<hi-lo+1;i++)
+		for(int i=0;i<hi/*-lo+1*/;i++)
 			store[i] = false;
-		//cout << dp(store, lo, hi);
-		cout << reverse(113) << endl;
+		cout << dp(store, lo, hi) << endl;
 	}
 return 0;
 }
