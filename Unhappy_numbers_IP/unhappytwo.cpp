@@ -35,6 +35,7 @@ ull dp(bool store[], ull lo, ull hi)
 			while(inc != start) {
 				if(inc == 1)
 					continue;
+				inc = next_happy(inc);
 	}
 return count;
 }

@@ -57,4 +57,3 @@ int main()
 	cout << dijkstra(0, *g) << endl;
 return 0;
 }
-	
