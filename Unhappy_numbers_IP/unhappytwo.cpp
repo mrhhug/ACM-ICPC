@@ -1,32 +1,69 @@
 #include<iostream>
-
 using namespace std;
 
 typedef unsigned long long ull;
 
-ull next_happy(ull x)
+ull gen_happy(ull n)
 {
 	ull ans = 0;
-	while(x > 0) {
-		ans += (x%10) * (x%10);
-		x /= 10;
+	while(n > 0) {
+		ans += (n%10) * (n%10);		
+		n /= 10;
 	}
 return ans;
 }
-void gen(bool store[], ull input)
-{
-	if(input > 1e18)
-		return;
-	
 
-	ull output = next_happy(input);
-	if(output == 1) {
-		return gen(store, input+1);
+ull reverse(ull n)
+{
+	ull ans = 0;
+	while(n > 0) {
+		ans = (n%10) * 10;
+		n /= 10;
 	}
+return ans;
+}
+
+ull dp(bool store[], ull lo, ull hi)
+{
+	ull count = 0;
+	for(int i=lo;i<=hi;i++) {
+		if(store[i])
+			count++;
+		else {
+			int start = i, inc = gen_happy(i);
+			while(true) {
+				if(inc == 1)
+					continue;
+				else if(start == inc) {
+					count++;
+					store[i] = true;
+					inc = gen_happy(inc);
+					while(start != inc) {
+						if(store[inc])
+							continue;
+						store[inc] = true;
+						inc = gen_happy(inc);
+					}
+					break;
+				} else
+					inc = gen_happy(inc);
+			}
+		}
+	}
+return count;
 }
 int main()
 {
-	bool happy[100000000000000000] = {true};
-	gen(happy, 0);
+	while(true) {
+		ull lo, hi;
+		cin >> lo >> hi;
+		if(lo == 0 && hi == 0)
+			break;
+		bool store[hi];
+		for(int i=0;i<hi-lo+1;i++)
+			store[i] = false;
+		//cout << dp(store, lo, hi);
+		cout << reverse(113) << endl;
+	}
 return 0;
 }
