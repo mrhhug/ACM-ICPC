@@ -68,7 +68,6 @@ int main()
                 }
                 cout << pai.first << "," << pai.second << endl;
         }
-        */
         //dfs to destination node
         stack<pair<int,int> > sta;
         pair<int, int> pai;
@@ -92,4 +91,5 @@ int main()
                 }
                 cout << pai.first << "," << pai.second << endl;
         }
+	*/
 }
