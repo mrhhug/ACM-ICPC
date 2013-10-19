@@ -2,6 +2,7 @@
 #include <queue>
 #include <stack>
 #include <vector>
+#include <algorithm>    // std::for_each
 
 using namespace std;
 struct edge
@@ -9,7 +10,12 @@ struct edge
 	int source;
 	int dest;
 	int weight;
+	bool visited;
 };
+void printedges(edge ed)
+{
+	cout << ed.source << "," << ed.dest << "," << ed.weight << endl;
+}
 int main()
 {
 	//initials
@@ -22,23 +28,37 @@ int main()
 	vector<edge> vect;
 	
 	//fill vector
+	edge ed;
 	for (int i=1;i<=e;i++)
 	{
 		cin >> source;
 		cin >> dest;
 		cin >> weight;
-		matrix[source][dest]=weight;
+		ed.source=source;
+		ed.dest=dest;
+		ed.weight=weight;
+		ed.visited=false;
+		vect.push_back(ed);
 	}
 	
-	//print matrix
-	for (int i=0;i<v;i++)
+	//print vector
+	for_each (vect.begin(),vect.end(),printedges);
+	
+	stack<edge> sta;
+
+	do
 	{
-		for (int j=0;j<v;j++)
+		ed=vect.front();
+		if (ed.visited==false)
 		{
-			cout<<matrix[i][j] << "\t";
+			ed.visited = true;
+			sta.push(ed);
+			for (int i =0 ; i<v;i++)
+			{
 		}
-		cout<<endl;
-    	}
+
+
+	}while(sta.size()>0);
 	//bfs
 	/*
 	queue<triple> col;
@@ -69,7 +89,6 @@ int main()
 		}
 		cout << tri.source << "," << tri.dest << "," << tri.weight << endl;
 	}
-	*/
 	//dfs to destination node
 	stack<triple> col;
 	triple tri;
@@ -99,6 +118,7 @@ int main()
 		}
 		cout << tri.source << "," << tri.dest << "," << tri.weight << endl;
 	}
+	*/
 }
 
 
