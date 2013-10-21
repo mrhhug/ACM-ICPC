@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,6 +14,11 @@ struct edge
 	int weight;
 	bool visited;
 	vector<edge> children;
+
+	bool operator<(const edge& a) const
+	{
+	        return source < a.source;
+	}
 };
 // the only thing is that you have to keep this graph connected, so take all the nodes and sort or something
 class graph
@@ -33,23 +39,23 @@ private:
 			if(spath.size()==0)
 			{
 				head.children.push_back(nd);
+				///this is optional, it sorts the children
+				sort(head.children.begin(),head.children.end());
 			}
 			else
 			{
-				//cout << "newnode source="<<nd.source<< "newnode dest="<<nd.dest<<endl;
 				print(spath);
-				edge ed =spath.at(0);
+				//HEHRHERHEHRHEHRHERHHEHEHRHER
+				edge ed =spath.at(spath.size());
 				for(int i =0;i<spath.size() && ed.dest!=nd.source; i++)
 				{
-					cout<< "tttttttttt";
 					ed=spath.at(i);
 					ed.children.push_back(nd);
+				///this is optional, it sorts the children
+					sort(ed.children.begin(),ed.children.end());
 				}
-				//spath.at(spath.end()).children.push_back(nd);
-				//sort(spath.begin(),spath.end());
 			}
 		}
-		//cout <<size<<endl;
 		size++;
 	}
 public:
@@ -77,58 +83,59 @@ public:
 	vector<edge> bfs(int dest)
 	{
 		vector<edge> path;
-		queue<edge> q;
+		queue<edge> col;
 		edge current;
 		current = head;
 		for(int i=0;i<current.children.size();i++)
 		{
-			q.push(current.children.at(i));
+			col.push(current.children.at(i));
 		}
-		while(q.size()>0)
+		while(col.size()>0)
 		{
-			current = q.front();
-			q.pop();
+			current = col.front();
+			col.pop();
 			path.push_back(current);
 			for(int i =0;current.children.size();i++)
 			{
-				q.push(current.children.at(i));
+				col.push(current.children.at(i));
+			}
+			//col.push(node
+		}
+		return path;
+	}
+	//pass something like -2 for a full dfs
+	vector<edge> dfs(int dest)
+	{
+		vector<edge> path;
+		stack<edge> col;
+		edge current;
+		current = head;
+		for(int i=0;i<current.children.size();i++)
+		{
+			col.push(current.children.at(i));
+		}
+		while(col.size()>0)
+		{
+			current = col.top();
+			col.pop();
+			path.push_back(current);
+			for(int i =0;current.children.size();i++)
+			{
+				col.push(current.children.at(i));
 			}
 		}
 		return path;
 	}
 	vector<edge> shortestHops(int source, int dest)
 	{
-		vector<edge> vect = bfs(-2);
 		vector<edge> returnPath;
-		vector<edge> possiblePath;
-		bool beCounting = false;
-		//find shortest path from shource to dest. 
-		for(int i =0;i<vect.size();i++)
+		vector<edge> tempath;
+		if(source == dest)
 		{
-			//printEdgeVect(vect);
-			if(vect.at(i).source==source)
-			{
-				beCounting=true;
-			}
-			if(vect.at(i).source==dest)
-			{
-				beCounting=false;
-				if(returnPath.size()<possiblePath.size())
-				{
-					returnPath=possiblePath;
-					possiblePath.clear();
-				}
-			}
-			if(beCounting)
-			{
-				possiblePath.push_back(vect.at(i));
-			}
+			return returnPath;
 		}
-		if(returnPath.size()<possiblePath.size())
-		{
-			returnPath=possiblePath;
-			possiblePath.clear();
-		}
+		tempath = bfs(-2);
+		
 		return returnPath;
 	}
 	void print(vector<edge> vect)
@@ -136,8 +143,9 @@ public:
 		cout << "size =" << vect.size();
 		for(int i =0;i<vect.size();i++)
 		{
-			cout << "source :" << vect.at(i).source << " dest : " << vect.at(i).dest << " " << endl;
+			cout << "source :" << vect.at(i).source << " dest : " << vect.at(i).dest << " ";
 		}
+		cout << endl;
 	}
 	edge returnHead()
 	{
@@ -148,8 +156,8 @@ int main()
 {
 	graph gr;
 	gr.add(1,2,35);
-	gr.add(1,3,35);
 	gr.add(1,4,35);
+	gr.add(1,3,35);
 	gr.add(2,7,35);
 	gr.add(2,6,35);
 	gr.add(2,5,35);
@@ -158,12 +166,36 @@ int main()
 	gr.add(4,12,35);
 	gr.add(4,10,15);
 	gr.add(4,11,45);
+	gr.add(10,13,45);
 	gr.add(3,9,99);
 	vector<edge> path = gr.bfs(-2);
-	cout << "starting loop" << endl;
+	cout << "starting bfs" << endl;
 	for(int i =0;i<path.size();i++)
 	{
-		cout << path.at(i).source << " " << path.at(i).dest << endl;
+		cout << path.at(i).source << "-" << path.at(i).dest << "  ";
 	}
-	cout << "head source=" << gr.returnHead().source<<" head dest="<<gr.returnHead().dest<<endl;
+	cout << endl;
+	path = gr.dfs(-2);
+	cout << "starting dfs" << endl;
+	for(int i =0;i<path.size();i++)
+	{
+		cout << path.at(i).source << "-" << path.at(i).dest << "  ";
+	}
+	cout << endl;
+	path = gr.bfs(-2);
+	cout << "starting bfs" << endl;
+	vector<int> check;
+	for(int i =0;i<path.size();i++)
+	{
+		if(find(check.begin(),check.end(),path.at(i).source)!=check.end())
+		{
+			check.clear();
+			cout<<endl;	
+		}
+		check.push_back(path.at(i).dest);
+		cout << path.at(i).source << "-" << path.at(i).dest << "  ";
+
+	}
+	cout << endl;
+	//cout << "head source=" << gr.returnHead().source<<" head dest="<<gr.returnHead().dest<<endl;
 }
