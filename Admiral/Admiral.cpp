@@ -40,7 +40,7 @@ private:
 			{
 				head.children.push_back(nd);
 				///this is optional, it sorts the children
-				sort(head.children.begin(),head.children.end());
+				//sort(head.children.begin(),head.children.end());
 			}
 			else
 			{
@@ -52,7 +52,7 @@ private:
 					ed=spath.at(i);
 					ed.children.push_back(nd);
 				///this is optional, it sorts the children
-					sort(ed.children.begin(),ed.children.end());
+					//sort(ed.children.begin(),ed.children.end());
 				}
 			}
 		}
