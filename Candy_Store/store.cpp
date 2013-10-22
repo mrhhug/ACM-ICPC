@@ -1,14 +1,16 @@
 #include<iostream>
 using namespace std;
 
-double max(double a, double b) {return a>b?a:b; }
+int max(int a, int b) {return a>b?a:b; }
 
-double knapsack(int W, int wt[], double val[], int n)
+int knapsack(int W, int wt[], int val[], int n)
 {
-	double K[n+1][W+1];
+	int K[n+1][W+1];
 
-	for(int i=0;i<=n;i++) {
-		for(int j=0;j<=W;j++) {
+	for(int i=0;i<=n;i++)
+       	{
+		for(int j=0;j<=W;j++)
+	       	{
 			if(i==0 || j==0)
 				K[i][j] = 0;
 			else if(wt[i-1] <= j)
@@ -22,17 +24,23 @@ return K[n][W];
 //test
 int main()
 {
-	while(true) {
-		double m;
+	while(true)
+       	{
+		int m;
 		int n;
-		cin >> n >> m;
-		if(n == 0 && m == 0.00)
+		double mm,cc,pp;
+		cin >> n >> mm;
+		m=mm*100;
+		if(n == 0 && m == 0)
 			return 0;
 		int c[n];
-       		double p[n];
+       		int p[n];
 		for(int i=0;i<n;i++)
 		{
-			cin >> c[i] >> p[i];
+			cin >> cc >> pp;
+			c[i]=cc*100;
+			p[i]=pp*100;
+			//cin >> c[i] >> p[i];
 		}
 		cout << knapsack(m, c, p, n) << endl;
 	}
