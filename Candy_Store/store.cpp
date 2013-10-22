@@ -3,46 +3,60 @@ using namespace std;
 
 int max(int a, int b) {return a>b?a:b; }
 
-int knapsack(int W, int wt[], int val[], int n)
-{
-	int K[n+1][W+1];
+int M[2000][2000];
 
-	for(int i=0;i<=n;i++)
-       	{
-		for(int j=0;j<=W;j++)
-	       	{
-			if(i==0 || j==0)
-				K[i][j] = 0;
-			else if(wt[i-1] <= j)
-				K[i][j] = max(val[i-1] + K[i-1][j-wt[i-1]], K[i-1][j]);
+int knapsack(int value[], int weight[], int C, int n)
+{
+	/*
+	 *
+	 *
+	 * this is all shit
+	 * what we need to do is find the max cost
+	 * fill up the knapsack with the best price saving room for the highest price item
+	 * then iterate through seeing if the highest-1 will make the best value
+	 *
+	 *
+	for(int i = 1; i <= C; i++)
+	{
+		for(int j = 0; j <n; j++)
+		{
+			if(j > 0)
+			{
+				M[j][i] = M[j-1][i];
+				if (weight[j] <= i)
+				{
+			  		M[j][i] = max(M[j][i], M[j-1][i-weight[j]]+value[j]);
+			  	}
+			}
 			else
-				K[i][j] = K[i-1][j];
-		}
+			{
+				M[j][i] = 0;
+				if(weight[j] <= i)
+				{
+					M[j][i] = max(M[j][i], value[j]);
+			  	}
+			}
+		//    cout << M[i][n-1] << endl;
+		}        
 	}
-return K[n][W];
+	//
+	return M[n-1][C];
 }
-//test
 int main()
 {
-	while(true)
-       	{
-		int m;
-		int n;
-		double mm,cc,pp;
-		cin >> n >> mm;
-		m=mm*100;
-		if(n == 0 && m == 0)
-			return 0;
-		int c[n];
-       		int p[n];
-		for(int i=0;i<n;i++)
-		{
-			cin >> cc >> pp;
-			c[i]=cc*100;
-			p[i]=pp*100;
-			//cin >> c[i] >> p[i];
-		}
-		cout << knapsack(m, c, p, n) << endl;
+	double cc,ww;
+	int C, N;
+	cin >> N >> cc;
+	C=cc;
+	//    cout << C << endl;
+	int* value = new int[N+1];
+	int* weight = new int[N+1];
+	for ( int i = 0; i < N; i++) {
+		//cin>>weight[i]>>value[i];
+		cin>>value[i]>>ww;
+		weight[i]=ww;
 	}
-return 0;
+	//   vector < int >back(N, 0);
+	cout<<knapsack(value,weight,C,N)<<endl;
+	return 0;
 }
