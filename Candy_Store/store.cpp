@@ -22,17 +22,15 @@ return K[n][W];
 
 int main()
 {
-	int t;
-	cin >> t;
-	while(t--) {
-		int n, w;
+	double n, w;
+	double a ,b;
+	while(t!=0 && w !=0)
+       	{
 		cin >> n >> w;
-		int  c[n], p[n], t[n], weight[n];
-		for(int i=0;i<n;i++) {
-			cin >> c[i] >> p[i] >> t[i];
-			weight[i] = c[i] * p[i];
+		for(int i=0;i<n;i++)
+		{
+			cin >> a >> b;
 		}
-
 		cout << knapsack(w, t, weight, n) << endl;
 	}
 return 0;
