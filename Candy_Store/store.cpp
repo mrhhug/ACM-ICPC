@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int max(int a, int b) {return a>b?a:b; }
+double max(double a, double b) {return a>b?a:b; }
 
 double knapsack(int W, int wt[], double val[], int n)
 {
@@ -22,15 +22,19 @@ return K[n][W];
 
 int main()
 {
-	double m;
-	int n;
-	cin >> n >> m;
-	int c[n];
-       	double p[n];
-	for(int i=0;i<n;i++)
-	{
-		cin >> c[i] >> p[i];
+	while(true) {
+		double m;
+		int n;
+		cin >> n >> m;
+		if(n == 0 && m == 0.00)
+			return 0;
+		int c[n];
+       		double p[n];
+		for(int i=0;i<n;i++)
+		{
+			cin >> c[i] >> p[i];
+		}
+		cout << knapsack(m, c, p, n) << endl;
 	}
-	cout << knapsack(m, c, p, n) << endl;
 return 0;
 }
