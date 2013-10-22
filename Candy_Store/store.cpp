@@ -19,7 +19,7 @@ double knapsack(int W, int wt[], double val[], int n)
 	}
 return K[n][W];
 }
-
+//test
 int main()
 {
 	while(true) {
