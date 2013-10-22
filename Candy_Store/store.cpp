@@ -3,9 +3,9 @@ using namespace std;
 
 int max(int a, int b) {return a>b?a:b; }
 
-int knapsack(int W, int wt[], int val[], int n)
+double knapsack(int W, int wt[], double val[], int n)
 {
-	int K[n+1][W+1];
+	double K[n+1][W+1];
 
 	for(int i=0;i<=n;i++) {
 		for(int j=0;j<=W;j++) {
@@ -22,16 +22,15 @@ return K[n][W];
 
 int main()
 {
-	double n, w;
-	double a ,b;
-	while(t!=0 && w !=0)
-       	{
-		cin >> n >> w;
-		for(int i=0;i<n;i++)
-		{
-			cin >> a >> b;
-		}
-		cout << knapsack(w, t, weight, n) << endl;
+	double m;
+	int n;
+	cin >> n >> m;
+	int c[n];
+       	double p[n];
+	for(int i=0;i<n;i++)
+	{
+		cin >> c[i] >> p[i];
 	}
+	cout << knapsack(m, c, p, n) << endl;
 return 0;
 }
