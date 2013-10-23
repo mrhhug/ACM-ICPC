@@ -5,12 +5,13 @@ typedef unsigned long ull;
 
 ull max(ull a, ull b) {return a>b?a:b; }
 
+ull knapsack(ull value[], ull weight[], ull C, ull n)
 {
 	ull best[10001] = {0};
 	ull ans = 0;
 
-	for(int i=0;i<C;i++) {
-		for(int j=0;j<n;j++) {
+	for(ull i=0;i<C;i++) {
+		for(ull j=0;j<n;j++) {
 			ull target = i+weight[j];
 			ull fatness = best[i]+value[j];
 			if(target <= C && fatness > best[target]) {
@@ -36,8 +37,8 @@ int main()
 			return 0;
 		ull c[5000], p[5000], dollar[5000], cent[5000];
 	
-		for(int i=0;i<n;i++) {
-			scanf("%d %d.%d", &c[i], &dollar[i], &cent[i]);
+		for(ull i=0;i<n;i++) {
+			scanf("%ld %ld.%ld", &c[i], &dollar[i], &cent[i]);
 			p[i] = (dollar[i] * 100) + cent[i];
 		}
 		cout << knapsack(c, p, m_ull, n) << endl;
