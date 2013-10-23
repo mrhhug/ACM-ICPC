@@ -5,25 +5,11 @@ typedef unsigned long ull;
 
 ull max(ull a, ull b) {return a>b?a:b; }
 
-
-	/*for(int i=0;i<=n;i++)
-       	{
-		for(int j=0;j<=W;j++)
-	       	{
-			if(i==0 || j==0)
-				K[i][j] = 0;
-			else if(wt[i-1] <= j)
-				K[i][j] = max(val[i-1] + K[i-1][j-(wt[i-1])], K[i-1][j]);
-=======*/
-ull knapsack(ull value[], ull weight[], ull C, ull n)
 {
 	ull best[10001] = {0};
-	ull ans = 0, last = -1;
-	ull fattest = 0;
+	ull ans = 0;
 
 	for(int i=0;i<C;i++) {
-		if(best[i] > last)
-			last = best[i];
 		for(int j=0;j<n;j++) {
 			ull target = i+weight[j];
 			ull fatness = best[i]+value[j];
@@ -36,6 +22,7 @@ ull knapsack(ull value[], ull weight[], ull C, ull n)
 	}
 return ans;
 }
+
 int main()
 {
 	while(true)
