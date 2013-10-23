@@ -17,26 +17,27 @@ ull max(ull a, ull b) {return a>b?a:b; }
 =======*/
 ull knapsack(ull value[], ull weight[], ull C, ull n)
 {
-	ull M[n+1][C+1];
-	for(ull j=0;j<=n;j++) {
-		for(ull i=0;i<=C;i++)
-			M[j][i] = 0;
-	}
+	ull best[C*n+1];
+	ull ans = 0, last = -1;
+	ull fattest = 0;
 
-	for(ull j=0;j<=n;j++) {
-		for(ull i=0;i<=C;i++) {
-			if(j > 0) {
-				M[j][i] = M[j-1][i];
-				if (weight[j] <= i)
-		  			M[j][i] = max(M[j][i], M[j-1][i-weight[j]]+value[j]);
-			} else {
-				//M[j][i] = 0;
-				if(weight[j] <= i)
-					M[j][i] = max(M[j][i], value[j]);
+	for(int i=0;i<n*C;i++)
+		best[i] = 0;
+
+	for(int i=0;i<C;i++) {
+		if(best[i] > last)
+			last = best[i];
+		for(int j=0;j<n;j++) {
+			ull target = i+weight[j];
+			ull fatness = best[i]+value[j];
+			if(target <= C && fatness > best[target]) {
+				best[target] = fatness;
+				if(fatness > ans)
+					ans = fatness;
 			}
 		}
 	}
-return M[n-1][C];
+return ans;
 }
 int main()
 {
