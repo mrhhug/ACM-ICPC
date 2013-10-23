@@ -2,7 +2,6 @@
 #include<cmath>
 using namespace std;
 typedef unsigned long ul;
-double abv(double a) { return a > 0 ? a : -a; }
 
 int main()
 {
