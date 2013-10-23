@@ -17,12 +17,9 @@ ull max(ull a, ull b) {return a>b?a:b; }
 =======*/
 ull knapsack(ull value[], ull weight[], ull C, ull n)
 {
-	ull best[C*n+1];
+	ull best[10001] = {0};
 	ull ans = 0, last = -1;
 	ull fattest = 0;
-
-	for(int i=0;i<n*C;i++)
-		best[i] = 0;
 
 	for(int i=0;i<C;i++) {
 		if(best[i] > last)
@@ -50,7 +47,7 @@ int main()
 		m_ull++;
 		if(n == 0 && m == 0)
 			return 0;
-		ull c[n], p[n], dollar[n], cent[n];
+		ull c[5000], p[5000], dollar[5000], cent[5000];
 	
 		for(int i=0;i<n;i++) {
 			scanf("%d %d.%d", &c[i], &dollar[i], &cent[i]);
