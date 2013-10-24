@@ -4,34 +4,35 @@ using namespace std;
 int main()
 {
 	for(;;) {
-		int n ,m;
-		int essay[n+1], d, u;
-		bool two = false;
+		int n ,m, ans = 1;
 		cin >> n >> m;
+		int d, u, essay[n], point[n];
 		if(n == 0 && m == 0)
 			return 0;
+		for(int i=0;i<n;i++) {
+			essay[i] = 0;
+			point[i] = 0;
+		}
+
 		for(int i=0;i<m;i++) {
 			cin >> d >> u;
-			essay[d] = u;
+			essay[u-1]++;
+			point[u-1] = d;
 		}
-		for(int i=1;i<=n;i++) {
-			if(essay[essay[i]] < i) {
-				cout << 0 << endl;
-				break;
-			} else {
-				for(int j=i+1;j<n;j++) {
-					if(essay[j] == essay[i]) {
-						two = true;
-						break;
-					} else
-						two = false;
-				}
-			}
+
+		/*for(int i=1;i<=n;i++) {
+			essay[point[i]]--;
+		}*/
+
+		for(int i=0;i<n;i++) {
+			if(essay[point[i]-1] < 1) {
+				ans = 0;
+				cout << ans << endl;
+				return 0;
+			} else if(essay[point[i]-1] > 1)
+				ans = 2;
 		}
-		if(two)
-			cout << 2 << endl;
-		else if(!two)
-			cout << 1 << endl;
+		cout << ans << endl;
 	}
 return 0;
 }

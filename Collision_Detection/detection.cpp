@@ -20,8 +20,6 @@ int main()
 
 		double acc1 = (abs(s[0][1] - s[0][0]) / abs(t[0][1] - t[0][0]));
 		double acc2 = (abs(s[1][1] - s[1][0]) / abs(t[1][1] - t[1][0]));
-
-
 	}
 return 0;
 }
