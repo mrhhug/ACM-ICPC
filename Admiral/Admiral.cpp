@@ -14,7 +14,6 @@ struct edge
 	int weight;
 	bool visited;
 	vector<edge> children;
-
 	bool operator<(const edge& a) const
 	{
 	        return source < a.source;
@@ -32,6 +31,8 @@ private:
 		{
 			head.dest=nd.source;
 			head.children.push_back(nd);
+			head.childr
+
 		}
 		else
 		{
@@ -44,7 +45,7 @@ private:
 			}
 			else
 			{
-				print(spath);
+				cout << "yes yes ye sy" <<endl; 
 				//HEHRHERHEHRHEHRHERHHEHEHRHER
 				edge ed =spath.at(spath.size());
 				for(int i =0;i<spath.size() && ed.dest!=nd.source; i++)
@@ -97,6 +98,8 @@ public:
 			path.push_back(current);
 			for(int i =0;current.children.size();i++)
 			{
+				if(current.dest == dest)
+					return path;
 				col.push(current.children.at(i));
 			}
 			//col.push(node
