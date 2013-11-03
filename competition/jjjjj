@@ -1,0 +1,72 @@
+package test;
+
+import java.util.Scanner;
+
+public class testmain {
+
+	public static int number(String str,int start)
+	{
+		int index = start;
+		if(str.length()<start)
+		{
+			return start;
+		}
+		while(str.charAt(index)!=' ' && index < str.length()-1)
+		{
+			index++;
+		}
+		return  index;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		//System.out.println("hello");
+		
+		int n = scn.nextInt();
+		scn.nextLine();
+		String str[] = new String[n+1];
+		int index =0;
+		
+		
+		for (int i =0 ; i<n;i++)
+		{
+			str[i]=scn.nextLine();
+
+		}
+
+		for(int i =0 ;i<n;i++)
+		{
+			index=number(str[i],index);
+		}
+		
+		index++;
+		System.out.print(index);
+//		for(;;)
+//		{
+//			
+//			if(n==0)
+//			{
+//				break;
+//			}
+//			String str[] = new String[n];
+//			
+//			
+//			int ans = 0, j = 0;
+//			for(int i=0;i < str[j].length() && j < n;i++){
+//				int space = 0;
+//				if(str[j].charAt(i) == ' ' )
+//					space++;
+//				if(space >= ans) {
+//					ans++;
+//					i = 0;
+//				}
+//				
+//			}
+//			System.out.println(ans);
+//			
+//		}
+
+	}
+
+}
+
