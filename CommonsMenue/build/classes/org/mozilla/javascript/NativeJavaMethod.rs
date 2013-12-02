@@ -1,0 +1,2 @@
+org.mozilla.javascript.NativeJavaMethod
+org.mozilla.javascript.ResolvedOverload
